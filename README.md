@@ -24,6 +24,33 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 - CI - Github Actions
 - CD - Argo CD
 
+# Project Implementation
+
+## Installations and Prerequisites
+
+- Create AWS account
+    - This is the root user
+
+- Create an IAM user with required permissions
+    - In the root user account
+    - AWS console -> IAM dashboard -> users -> Create user ->  Name- devops-user -> Provide user access to the AWS Management Console - Allow -> Custom password -> Users must create a new password at next sign-in - don't allow 
+- Create an EC2 instance
+    - In the IAM user account
+    - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - RSA, .pem -> Network settings - auto-assign public IP(enabled), Allow SSH traffic
+- Install Docker
+- Install Kubectl
+- Install Terraform
+
+## Containerization of the project
+
+## Infrastructure as code using Terraform
+
+## Deploying Project to Kubernetes
+
+## Custom Domain configuration for the project
+
+## CI/CD
+
 # Socials
 
 - LinkedIn - https://linkedin.com/in/mitali1609
