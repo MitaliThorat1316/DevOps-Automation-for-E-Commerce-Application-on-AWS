@@ -49,7 +49,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
       
 - SSH into the EC2 insance
   - Once the Instance state is 'running', click on the Instance and copy the 'Public IPv4 address'
-  - Go to your machine terminal (for me it's cmd)
+  - Go to your machine command line tool (for me it's command prompt)
   - In cmd, go to the folder where devops-demo.pem file in downloaded
   - type ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ``` , ubuntu is the default username for AWS EC2 with ubuntu AMI
   - If it doesn't work, type ```chmod 400 devops-demo.pem``` and try again
