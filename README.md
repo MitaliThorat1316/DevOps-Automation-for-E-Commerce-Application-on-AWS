@@ -43,15 +43,16 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 - Create an EC2 instance
     - In the IAM user account
     - Region - London (eu-west-2)
-    - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - RSA, .pem
-      (the .pem file will we downloaded on your machine) ->Network settings - auto-assign public IP(enabled), Allow SSH traffic -> Launch Instance
+    - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - devops-demo(name), RSA,
+      .pem, create key pair (the devops-demo.pem file will we downloaded on your machine) -> Network settings - auto-assign public IP(enabled), Allow SSH traffic -> Launch
+      Instance
       
 - SSH into the EC2 insance
   - Once the Instance state is 'running', click on the Instance and copy the 'Public IPv4 address'
   - Go to your machine terminal (for me it's cmd)
-  - In cmd, go to the folder where .pem file in downloaded
-  - type ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ```
-  - If it doesn't work type ```chmod 400 devops-demo.pem``` and try again
+  - In cmd, go to the folder where devops-demo.pem file in downloaded
+  - type ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ``` , ubuntu is the username
+  - If it doesn't work, type ```chmod 400 devops-demo.pem``` and try again
   
 - Install Docker
 - Install Kubectl
