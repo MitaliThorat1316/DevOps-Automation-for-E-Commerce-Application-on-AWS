@@ -29,14 +29,30 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Installations and Prerequisites
 
 - Create AWS account
+    - Go to [AWS sign in](https://signin.aws.amazon.com/signup?request_type=register) page and follow the steps
+    - You'll need a debit/credit card
     - This is the root user
+    
 
 - Create an IAM user with required permissions
     - In the root user account
-    - AWS console -> IAM dashboard -> users -> Create user ->  Name- devops-user -> Provide user access to the AWS Management Console - Allow -> Custom password -> Users must create a new password at next sign-in - don't allow 
+    - AWS console -> IAM dashboard -> users -> Create user ->  Name- devops-user -> Provide user access to the AWS Management Console - Allow -> Custom password ->
+      Users    must create a new password at next sign-in - don't allow -> Next -> Set permissions - Attach policies directly -> Permissions policies - AdministratorAccess
+      -> Next -> Create user -> Download .csv file
+      
 - Create an EC2 instance
     - In the IAM user account
-    - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - RSA, .pem -> Network settings - auto-assign public IP(enabled), Allow SSH traffic
+    - Region - London (eu-west-2)
+    - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - RSA, .pem
+      (the .pem file will we downloaded on your machine) ->Network settings - auto-assign public IP(enabled), Allow SSH traffic -> Launch Instance
+      
+- SSH into the EC2 insance
+  - Once the Instance state is 'running', click on the Instance and copy the 'Public IPv4 address'
+  - Go to your machine terminal (for me it's cmd)
+  - In cmd, go to the folder where .pem file in downloaded
+  - type ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ```
+  - If it doesn't work type ```chmod 400 devops-demo.pem``` and try again
+  
 - Install Docker
 - Install Kubectl
 - Install Terraform
