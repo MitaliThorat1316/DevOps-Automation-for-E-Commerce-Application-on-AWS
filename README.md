@@ -29,9 +29,9 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Installations and Prerequisites
 
 - Create AWS account
-  - Go to [AWS sign in](https://signin.aws.amazon.com/signup?request_type=register) page and follow the steps
-  - You'll need a debit/credit card
-  - This is the root user
+  - Go to [AWS sign-up page](https://signin.aws.amazon.com/signup?request_type=register)and follow the steps
+  - You'll need a debit or credit card
+  - This will be your root user account
  
 ***In the root user account***
     
@@ -50,14 +50,14 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Once the Instance state is 'running', click on the Instance and copy the 'Public IPv4 address'
   - Go to your machine's command-line tool (for me it's command prompt)
   - In cmd, go to the folder where devops-demo.pem file in downloaded
-  - type ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ``` , ubuntu is the default username for AWS EC2 with ubuntu AMI
-  - If it doesn't work, type ```chmod 400 devops-demo.pem``` and try again
+  - Run ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ``` , ubuntu is the default username for AWS EC2 with ubuntu AMI
+  - If it doesn't work, Run ```chmod 400 devops-demo.pem``` and try again
 
 ***In the EC2 instance:***
 
 - Install Docker
   - [Install docker engine](https://docs.docker.com/engine/install/)
-  - Go to, Install using the apt repository section and follow the steps
+  - Go to 'Install using the apt repository section' and follow the steps
   - Or you can follow the below steps:
     ```bash
     # Add Docker's official GPG key:
@@ -85,9 +85,9 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   
 - Install Kubectl
   - [Install kubectl](https://kubernetes.io/docs/tasks/tools/)
-  - Go to, Install kubectl on Linux -> Install kubectl binary with curl on Linux, then follow the steps
+  - Go to 'Install kubectl on Linux -> Install kubectl binary with curl on Linux' then follow the steps
   - Or just follow these steps:
-    ```
+    ```bash
     # Download the latest release with the command:
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
@@ -105,9 +105,9 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     ```
 - Install Terraform
   - [Install terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-  - Go to, Install terraform -> Linux -> Ubuntu/Debian and follow the steps
+  - Go to 'Install terraform -> Linux -> Ubuntu/Debian' and follow the steps
   - Or follow these steps:
-    ```
+    ```bash
     # HashiCorp's Debian package repository.
     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
