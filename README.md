@@ -136,6 +136,19 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 ## Containerization of the project
 
+- Clone the repository on your EC2 instance  
+  - Go to "[Github](https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS) -> <> Code -> HTTPS" and copy the web URL
+  - Or just copy this ``` https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
+  - Run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
+
+- Build docker images
+  - We'll implement this project on three services 'product catalog','ad' and 'recommendation'
+  - In the terminal, go to "the repository -> src -> product catalog"
+  - The 'product catalog' service in 'Go' language so you should have golang installed on your machine, if you don't have it, run ```sudo apt install golang -go```
+  - run ```ls```, you'll see 'Dockerfile' you can rewrite it to practice or directly follow the steps below
+  - To build the Docker image, run ```docker build -t mitali1609/product-catalog:v1 .```
+  - To run the Docker image, run ```docker run mitali1609/product-catalog:v1```                                    
+
 ## Infrastructure as code using Terraform
 
 ## Deploying Project to Kubernetes
