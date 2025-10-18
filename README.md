@@ -47,7 +47,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
       .pem, create key pair (the devops-demo.pem file will we downloaded on your machine) -> Network settings - auto-assign public IP(enabled), Allow SSH traffic -> Launch Instance
       
 - SSH into the EC2 insance
-  - Once the Instance state is 'running', click on the Instance and copy the 'Public IPv4 address'
+  - Once the Instance state is "running", click on the Instance and copy the "Public IPv4 address"
   - Go to your machine's command-line tool (for me it's command prompt)
   - In cmd, go to the folder where devops-demo.pem file in downloaded
   - Run ```ssh -i devops-demo.pem ubuntu@<IPv4 address> ``` , ubuntu is the default username for AWS EC2 with ubuntu AMI
@@ -57,7 +57,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 - Install Docker
   - [Install docker engine](https://docs.docker.com/engine/install/)
-  - Go to 'Install using the apt repository section' and follow the steps
+  - Go to "Install using the apt repository section" and follow the steps
   - Or you can follow the below steps:
     ```bash
     # Add Docker's official GPG key:
@@ -85,7 +85,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   
 - Install Kubectl
   - [Install kubectl](https://kubernetes.io/docs/tasks/tools/)
-  - Go to 'Install kubectl on Linux -> Install kubectl binary with curl on Linux' then follow the steps
+  - Go to "Install kubectl on Linux -> Install kubectl binary with curl on Linux' then follow the steps
   - Or just follow these steps:
     ```bash
     # Download the latest release with the command:
@@ -105,7 +105,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     ```
 - Install Terraform
   - [Install terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-  - Go to 'Install terraform -> Linux -> Ubuntu/Debian' and follow the steps
+  - Go to "Install terraform -> Linux -> Ubuntu/Debian" and follow the steps
   - Or follow these steps:
     ```bash
     # HashiCorp's Debian package repository.
@@ -137,17 +137,37 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Containerization of the project
 
 - Clone the repository on your EC2 instance  
-  - Go to "[Github](https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS) -> <> Code -> HTTPS" and copy the web URL
+  - Go to "[Github](https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS) -> Code -> HTTPS" and copy the repository URL
   - Or just copy this ``` https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
   - Run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
+ 
+- Create Docker Hub account
+  - Go to [Docker Hub](https://hub.docker.com/) and follow the steps 
+  - My username is "mitali1609" replace it with your own in the below steps
 
-- Build docker images
-  - We'll implement this project on three services 'product catalog','ad' and 'recommendation'
-  - In the terminal, go to "the repository -> src -> product catalog"
-  - The 'product catalog' service in 'Go' language so you should have golang installed on your machine, if you don't have it, run ```sudo apt install golang -go```
-  - run ```ls```, you'll see 'Dockerfile' you can rewrite it to practice or directly follow the steps below
-  - To build the Docker image, run ```docker build -t mitali1609/product-catalog:v1 .```
-  - To run the Docker image, run ```docker run mitali1609/product-catalog:v1```                                    
+- Build images and run Docker containers
+  - We'll containerize three services: 'product catalog', 'ad' and 'recommendation'
+  - Navigate to "src/product catalog" in the repository
+    - To build the Docker image for 'product catalog service' , run ```docker build -t mitali1609/product-catalog:v1 .```
+    - To run the container for 'product catalog service' , run ```docker run mitali1609/product-catalog:v1```
+  - Navigate to "src/ad"
+    - To build the Docker image for 'ad service' , run ```docker build -t mitali1609/adservice:v1 .```
+    - To run the container for 'ad service' , run ```docker run mitali1609/adservice:v1```
+  - Navigate to "src/recommendation"
+    - To build the Docker image for 'recommendation service' , run ```docker build -t mitali1609/recommendationservice:v1 .```
+    - To run the container for 'recommendation service' , run ```docker run mitali1609/recommendationservice:v1```
+  - Similarly you can build images and run containers for the rest of the services in the project
+    
+- Push Docker containers to registry
+  - Login to Docker Hub, run ```docker login``` and follow the steps
+  - List your images, run ```docker images | grep mitali1609```
+  - Push the images to Docker Hub
+    ```
+    docker push mitali1609/product-catalog:v1
+    docker push mitali1609/adservice:v1
+    docker push mitali1609/recommendationservice:v1
+    ```
+
 
 ## Infrastructure as code using Terraform
 
