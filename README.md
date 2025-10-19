@@ -167,9 +167,28 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     docker push mitali1609/adservice:v1
     docker push mitali1609/recommendationservice:v1
     ```
-
+***On your machine***
 
 ## Infrastructure as code using Terraform
+
+- Install Plugins and clone repository
+  - This part of the project will be on your own machine not the EC2 instance because it's easier to write Terraform files on VScode
+  - Open VScode and install "Terraform by Hashicorp", "YAML by Redhat" and "Github Copilot" plugins
+  - Clone the project repository on your machine, run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
+  
+- Configure AWS CLI using access keys
+  - Open IAM user AWS account -> click on devops-user dropdown on the upper right hand side corner -> Security credentials -> scroll down to access keys ->
+    create access  keys -> Use case - CLI -> next -> tag - terraform -> create access key -> Copy the "access key" and "secret access key" and keep somewhere safe ->
+    or just download the .csv file
+  - Navigate to "DevOps-Automation-for-E-Commerce-Application-on-AWS/eks" on your macine
+  - Go to [AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS) and follow the steps
+  - Or just follow the steps below
+    ```
+    msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+    msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi /qn
+    aws --version
+    ```
+  - Run ```aws configure``` -> enter "access key" and "secret access key" -> region - eu-west-2
 
 ## Deploying Project to Kubernetes
 
