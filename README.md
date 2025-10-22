@@ -190,6 +190,28 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     ```
   - Run ```aws configure``` -> enter "access key" and "secret access key" -> region - eu-west-2
 
+- Creating DynamoDB table and S3 bucket for state locking and remote backend
+  - Navigate to ```eks/backend```
+  - Then run
+     ```
+     terraform init
+     terraform plan
+     terraform apply
+     ```
+  - Go to the AWS console and check if the the DynamoDB table and S3 bucket have been created
+   
+- VPC and EKS cluster creation using Terraform
+  - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/eks```
+  - And run
+    ```
+    terraform init
+    terraform plan
+    terraform apply
+    ```
+    It will take about 15-20 minutes, do not stop in between
+  - After completion go to your AWS console and check if the resources have been created
+  - After you're done with your project run ```terraform destroy``` as VPC and EKS are not included in the AWS free tier
+
 ## Deploying Project to Kubernetes
 
 ## Custom Domain configuration for the project
