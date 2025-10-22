@@ -230,7 +230,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 ***On the EC2 Instance***
 
-## Deploying Project to Kubernetes
+## Deploying Project in Kubernetes
 
 - Connect to the EKS cluster by updating the kubeconfig file in kubectl
   - In your Ubuntu user's home directory
@@ -238,6 +238,20 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Run ```kubectl config view``` to check the configuration 
   - Run ```kubectl config current-context``` to verify the current context
   - Run ```kubectl get nodes``` to confirm connection to your EKS cluster and ensure worker nodes are active
+    
+- Create a service account
+  - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/```
+  - Run ```kubectl apply -f serviceaccount.yaml``` to create a service account
+  - Run ```kubectl get sa``` to verify the creation of service account
+
+- Create services and deployments
+  - You can either run ```kubectl apply -f <service-name>```, for example, to deploy the "ad" service run ```kubectl apply -f ad/``` for each service individually
+  - Or run ```kubectl apply -f complete-deploy.yaml``` to deploy all the 20 services at once
+  - Run ```kubectl get pods``` to verify the creation and check the status of your deployments (pods), wait until all pods are running
+  - Run ```kubectl get svc``` to verify that all services have been created
+ 
+- Deploy the ALB Ingress controller
+  - 
 
 ## Custom Domain configuration for the project
 
