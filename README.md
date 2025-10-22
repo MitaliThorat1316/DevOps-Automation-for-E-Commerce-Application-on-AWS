@@ -29,7 +29,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Installations and Prerequisites
 
 - Create AWS account
-  - Go to [AWS sign-up page](https://signin.aws.amazon.com/signup?request_type=register)and follow the steps
+  - Go to [AWS sign-up page](https://signin.aws.amazon.com/signup?request_type=register) and follow the steps
   - You'll need a debit or credit card
   - This will be your root user account
  
@@ -134,6 +134,23 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     terraform -help
     ```
 
+- Configure AWS CLI using access keys
+  - Open IAM user AWS account -> click on devops-user dropdown on the upper right hand side corner -> Security credentials -> scroll down to access keys ->
+    create access  keys -> Use case - CLI -> next -> tag - terraform -> create access key -> Copy the "access key" and "secret access key" and keep somewhere safe ->
+    or just download the .csv file
+  - Go to [AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS) and follow the steps
+  - Or just follow the steps below
+    ```
+    sudo apt install unzip -y
+    
+    sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    
+    aws --version
+    ```
+  - Run ```aws configure``` -> enter "access key" and "secret access key" -> region - eu-west-2
+
 ## Containerization of the project
 
 - Clone the repository on your EC2 instance  
@@ -172,15 +189,14 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Infrastructure as code using Terraform
 
 - Install Plugins and clone repository
-  - This part of the project will be on your own machine not the EC2 instance because it's easier to write Terraform files on VScode
-  - Open VScode and install "Terraform by Hashicorp", "YAML by Redhat" and "Github Copilot" plugins
+  - This part of the project will be on your own machine not the EC2 instance because it's easier to write Terraform HCL files on an IDE like VS code and this EC2 instance      does'nt support that
+  - Open VS code and install "Terraform by Hashicorp", "YAML by Redhat" and "Github Copilot" plugins
   - Clone the project repository on your machine, run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
   
 - Configure AWS CLI using access keys
   - Open IAM user AWS account -> click on devops-user dropdown on the upper right hand side corner -> Security credentials -> scroll down to access keys ->
     create access  keys -> Use case - CLI -> next -> tag - terraform -> create access key -> Copy the "access key" and "secret access key" and keep somewhere safe ->
     or just download the .csv file
-  - Navigate to "DevOps-Automation-for-E-Commerce-Application-on-AWS/eks" on your macine
   - Go to [AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS) and follow the steps
   - Or just follow the steps below
     ```
@@ -190,8 +206,8 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     ```
   - Run ```aws configure``` -> enter "access key" and "secret access key" -> region - eu-west-2
 
-- Creating DynamoDB table and S3 bucket for state locking and remote backend
-  - Navigate to ```eks/backend```
+- Create DynamoDB table and S3 bucket for state locking and remote backend
+  - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/eks/backend" on your machineeks/backend```
   - Then run
      ```
      terraform init
@@ -200,7 +216,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
      ```
   - Go to the AWS console and check if the the DynamoDB table and S3 bucket have been created
    
-- VPC and EKS cluster creation using Terraform
+- Create VPC and EKS cluster
   - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/eks```
   - And run
     ```
@@ -212,7 +228,16 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - After completion go to your AWS console and check if the resources have been created
   - After you're done with your project run ```terraform destroy``` as VPC and EKS are not included in the AWS free tier
 
+***On the EC2 Instance***
+
 ## Deploying Project to Kubernetes
+
+- Connect to the EKS cluster by updating the kubeconfig file in kubectl
+  - In your Ubuntu user's home directory
+  - Run ```aws eks update-kubeconfig --region eu-west-2 --name my-eks-cluster``` to update the kubeconfig file 
+  - Run ```kubectl config view``` to check the configuration 
+  - Run ```kubectl config current-context``` to verify the current context
+  - Run ```kubectl get nodes``` to confirm connection to your EKS cluster and ensure worker nodes are active
 
 ## Custom Domain configuration for the project
 
