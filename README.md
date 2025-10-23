@@ -341,6 +341,14 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 ## Custom Domain configuration for the project
 
+- Creating hosted zone in Route 53
+  - Go to Route 53 service on AWS console
+  - And "Get started -> create hosted zones -> Domain name - \<your domain name from GoDaddy> -> Description - A demo e-commerce project -> Type -> Public hosted zone ->
+    Create hosted zone"
+  - Then "Records -> Create record -> Record name - www -> Record type - A - Route traffic to an IPv4 address and some aws resources -> Alias - Enable -> Route traffic to -
+    Alias to Application and Classic Load Balancer -> Choose region - eu-west-2 -> Choose Load Balancer -> select the ALB load balancer -> Route policy - Simple routing
+    -> Evaluate target health - Enable -> Create records"
+
 ## CI/CD
 
 # Socials
