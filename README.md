@@ -323,16 +323,21 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
       # Verify that the deployments are running
       kubectl get deployment -n kube-system aws-load-balancer-controller
       ```
-  - Setup Ingress resources and access the Project
+  - Setup Ingress resources and access the project using a dummy domain
     - On your EC2 instance 
       - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/frontendproxy```
-      - Run ```kubectl apply -f ingress.yaml```
-      - Run ```kubectl get ing```
+      - Run ```kubectl apply -f ingress.yaml``` to create the Load Balancer
+      - Run ```kubectl get ing``` to check if ingress resource was created
       - Go to the AWS console and verify if the Load Balancer was created and check if the status is "Active", copy the "DNS name"
-      - Run ```nslookup <DNS name>```, under "Non-authoritative answer -> Address" copy the any IP address
+      - Run ```nslookup <DNS name>```, under "Non-authoritative answer -> Address" copy any of the given IP address
     - On your Machine
-      - 
-      -  
+      - Run "Notepad" as administrator
+      - Go to "File -> Open"
+      - Navigate to ```C:\Windows\System32\drivers\etc```
+      - In the botton right corner from the dropdown change file type to "All Files (\*.\*)"
+      - You'll see the "hosts" file, open it
+      - Write ```<Copied IP Address> example.com``` and save the file
+      - Go to your browser and search "example.com" you should be able to see the website and access the project
 
 ## Custom Domain configuration for the project
 
