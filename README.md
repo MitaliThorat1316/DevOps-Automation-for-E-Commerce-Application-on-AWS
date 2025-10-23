@@ -138,7 +138,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Open IAM user AWS account -> click on devops-user dropdown on the upper right hand side corner -> Security credentials -> scroll down to access keys ->
     create access  keys -> Use case - CLI -> next -> tag - terraform -> create access key -> Copy the "access key" and "secret access key" and keep somewhere safe ->
     or just download the .csv file
-  - Go to [AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS) and follow the steps
+  - Go to "[AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS)" and follow the steps
   - Or just follow the steps below
     ```
     sudo apt install unzip -y
@@ -150,6 +150,36 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     aws --version
     ```
   - Run ```aws configure``` -> enter "access key" and "secret access key" -> region - eu-west-2
+ 
+- Install eksctl
+  - [Install eksctl](https://docs.aws.amazon.com/eks/latest/eksctl/installation.html)
+  - Go to "Install eksctl -> For Unix" and follow the the steps 
+  - Or run
+    ```
+    ARCH=amd64
+    PLATFORM=$(uname -s)_$ARCH
+    
+    curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+    
+    # (Optional) Verify checksum
+    curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+    
+    tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+    
+    sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
+
+    eksctl version
+    ```
+
+- Install helm
+  - [Install helm](https://helm.sh/docs/intro/install/)
+  - Go to "Install helm -> From Script" and follow the steps
+  - Or run
+    ```
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
+    ```
 
 ## Containerization of the project
 
@@ -251,7 +281,48 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Run ```kubectl get svc``` to verify that all services have been created
  
 - Deploy the ALB Ingress controller
-  - 
+  - Install ALB Ingress controller
+    - Run
+      ```
+      # Commands to configure IAM OIDC provider
+      export cluster_name=my-eks-cluster
+      oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+
+      eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+      curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.11.0/docs/install/iam_policy.json
+
+      # Create IAM Policy
+      aws iam create-policy \
+      --policy-name AWSLoadBalancerControllerIAMPolicy \
+      --policy-document file://iam_policy.json
+
+      # Create IAM Role (edit "cluster" and "attach-policy-arn" below)
+      eksctl create iamserviceaccount \
+      --cluster=<your-cluster-name> \
+      --namespace=kube-system \
+      --name=aws-load-balancer-controller \
+      --role-name AmazonEKSLoadBalancerControllerRole \
+      --attach-policy-arn=arn:aws:iam::<your-aws-account-id>:policy/AWSLoadBalancerControllerIAMPolicy \
+      --approve
+
+      # Add helm repo
+      helm repo add eks https://aws.github.io/eks-charts
+
+      # Update the repo
+      helm repo update eks
+
+      # Install (edit "clusterName", "region" and "vpcId" below)
+      helm install aws-load-balancer-controller eks/aws-load-balancer-controller \            
+      -n kube-system \
+      --set clusterName=<your-cluster-name> \
+      --set serviceAccount.create=false \
+      --set serviceAccount.name=aws-load-balancer-controller \
+      --set region=<region> \
+      --set vpcId=<your-vpc-id>
+
+      # Verify that the deployments are running
+      kubectl get deployment -n kube-system aws-load-balancer-controller
+      ```
 
 ## Custom Domain configuration for the project
 
