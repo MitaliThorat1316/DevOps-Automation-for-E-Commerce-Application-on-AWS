@@ -373,6 +373,10 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
    
 ## CI/CD
 
+- Create Docker Tokens and Repository secrets 
+  - Go to Dockerhub and login to your account
+  - 
+
 # Socials
 
 - LinkedIn - https://linkedin.com/in/mitali1609
