@@ -324,22 +324,28 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
       kubectl get deployment -n kube-system aws-load-balancer-controller
       ```
   - Setup Ingress resources and access the project using a dummy domain
-    - On your EC2 instance 
-      - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/frontendproxy```
-      - Run ```kubectl apply -f ingress.yaml``` to create the Load Balancer
-      - Run ```kubectl get ing``` to check if ingress resource was created
-      - Go to the AWS console and verify if the Load Balancer was created and check if the status is "Active", copy the "DNS name"
-      - Run ```nslookup <DNS name>```, under "Non-authoritative answer -> Address" copy any of the given IP address
-    - On your Machine
-      - Run "Notepad" as administrator
-      - Go to "File -> Open"
-      - Navigate to ```C:\Windows\System32\drivers\etc```
-      - In the botton right corner from the dropdown change file type to "All Files (\*.\*)"
-      - You'll see the "hosts" file, open it
-      - Write ```<Copied IP Address> example.com``` and save the file
-      - Go to your browser and search "example.com" you should be able to see the website and access the project
+    - ***On your EC2 instance*** 
+    - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/frontendproxy```
+    - Run ```kubectl apply -f ingress.yaml``` to create the Load Balancer
+    - Run ```kubectl get ing``` to check if ingress resource was created
+    - Go to the AWS console and verify if the Load Balancer was created and check if the status is "Active", copy the "DNS name"
+    - Run ```nslookup <DNS name>```, under "Non-authoritative answer -> Address" copy any of the given IP address  
+    - ***On your Machine***
+    - Run "Notepad" as administrator
+    - Go to "File -> Open"
+    - Navigate to ```C:\Windows\System32\drivers\etc```
+    - In the botton right corner from the dropdown change file type to "All Files (\*.\*)"
+    - You'll see the "hosts" file, open it
+    - Write ```<Copied IP Address> example.com``` and save the file
+    - Go to your browser and search "example.com" you should be able to see the website and access the project
 
 ## Custom Domain configuration for the project
+
+- Getting a custom domain for the project (Paid)
+  - ***On your Machine***
+  - We'll buy a custon domain from [GoDaddy](https://www.godaddy.com/en-uk)
+  - Go to "GoDAddy -> type the domain you want in search bar -> Go ahead if it's available or choose one from the options given -> Looks good keep going -> select for one
+    year -> continue to cart -> No domain protection -> continue to cart -> Make payment"
 
 - Creating hosted zone in Route 53
   - Go to Route 53 service on AWS console
@@ -348,7 +354,23 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Then "Records -> Create record -> Record name - www -> Record type - A - Route traffic to an IPv4 address and some aws resources -> Alias - Enable -> Route traffic to -
     Alias to Application and Classic Load Balancer -> Choose region - eu-west-2 -> Choose Load Balancer -> select the ALB load balancer -> Route policy - Simple routing
     -> Evaluate target health - Enable -> Create records"
-
+  - In the new record from under the "Value\Route traffic to" section copy the name servers one by one and paste in the next step (they start with a "ns")
+    
+- Update the nameservers and Ingress hostname
+  - Login to "GoDaddy -> Click on your account -> My products -> Scroll down to Domains -> DNS -> Nameservers -> Change the nameservers -> I'll use my own nameservers
+    -> Paste the copied nameservers from records -> save -> continue" will take some time to start  
+  - ***On your EC2 Intance***
+  - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/frontendproxy```
+  - Run ```vim ingress.yaml``` to edit the file, press ```i``` to go to insert mode
+  - Under "spec -> hosts" change it to  ```www.<your domain name from GoDaddy>```
+  - Press ```esc``` to escape the insert mode and type ```:wq``` to save and exit the file
+  - Run ```kubectl apply -f ingress.yaml``` to update the ingress file
+  - Run ```kubectl get pods -n kube-system``` and copy the ingress controller pod's name
+  - Run ```kubectl logs <ingress controller pod name> -n kube-system``` and check the logs
+  - If you find your domain from Godaddy in the logs that means it was successful, try both the ingress controller pods    
+  - ***On your Machine***
+  - In your browser search for the domain from Godaddy the project website should be displayed
+   
 ## CI/CD
 
 # Socials
