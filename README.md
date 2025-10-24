@@ -373,13 +373,41 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
    
 ## CI/CD
 
+***CI***
 - Create Docker Token 
-  - Go to Dockerhub and login to your account
+  - Go to Docker Hub and login to your account
   - Go to "your account icon -> Account settings -> Personal access tokens (left hand side under settings) -> Generate new token -> Acess token description - DOCKER_TOKEN ->
-    Expiration date - None -> Access permissions - Read, Write and Delete -> Generate -> Copy the personal access token 
+    Expiration date - None -> Access permissions - Read, Write and Delete -> Generate -> Copy the personal access token" 
 
-- Create Repository token and secret
-  - 
+- Create Repository token
+  - Fork the repository "DevOps-Automation-for-E-Commerce-Application-on-AWS"
+  - Go to "Github -> your account icon -> Settings -> Developer settings (Left hand side list) -> Personal access tokens -> Tokens (classic) -> Generate new token ->
+    Generate new token (classic) -> Note - TOKEN -> Enable everything until admin:org -> Generate token -> Copy the token"
+
+- Create Repository secrets (Docker username, Docker token and Github token)
+  - Go to "Github -> Settings(besides insights) -> Secrets and variables (left side) -> Actions -> Repository secrets -> New repository secret -> Name - DOCKER_USERNAME ->
+    Secret - <your docker username> -> Add secret
+  - "New repository secret -> Name - DOCKER_TOKEN -> Secret - \<Docker personal access token that you created> -> Add Secret"
+  - "New repository secret -> Name - GITHUB_TOKEN -> Secret - \<Github token that you created> -> Add Secret"
+ 
+- Edit the ci.yaml file
+  - Clone the forked repository on your machine
+  - Open VS code and install "Github Actions" plugin
+  - Open the repository on VS code and navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/.github/workflows/ci.yaml```
+  - Go to "commit and push changes" section under the "updatek8s"
+  - Enter your Github email in "user.email" and enter your Github username in "user.name" and save the file
+ 
+- Executing the CI
+  - Go to your machine command line tool
+  - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS```
+  - Run ```git checkout -b githubcicheck``` to create a branch
+  - Run ```git status``` to check if any changes are made
+  - Run ```git add .``` to add those changes
+  - Run ```git commit -am "chore: verify github actions"```to commit those changes
+  - Run ```git push origin githubcicheck``` to push those changes
+  - Copy the URL displayed and open in an browser
+  - Change "base repository" to "DevOps-Automation-for-E-Commerce-Application-on-AWS"
+  - Create pull request
 
 # Socials
 
