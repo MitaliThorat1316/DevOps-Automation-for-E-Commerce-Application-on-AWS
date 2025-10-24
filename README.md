@@ -357,7 +357,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - In the new record from under the "Value\Route traffic to" section copy the name servers one by one and paste in the next step (they start with a "ns")
     
 - Update the nameservers and Ingress hostname
-  - Login to "GoDaddy -> Click on your account -> My products -> Scroll down to Domains -> DNS -> Nameservers -> Change the nameservers -> I'll use my own nameservers
+  - Login to "GoDaddy -> Click on your account icon -> My products -> Scroll down to Domains -> DNS -> Nameservers -> Change the nameservers -> I'll use my own nameservers
     -> Paste the copied nameservers from records -> save -> continue" will take some time to start  
   - ***On your EC2 Intance***
   - Navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/kubernetes/frontendproxy```
@@ -373,8 +373,12 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
    
 ## CI/CD
 
-- Create Docker Tokens and Repository secrets 
+- Create Docker Token 
   - Go to Dockerhub and login to your account
+  - Go to "your account icon -> Account settings -> Personal access tokens (left hand side under settings) -> Generate new token -> Acess token description - DOCKER_TOKEN ->
+    Expiration date - None -> Access permissions - Read, Write and Delete -> Generate -> Copy the personal access token 
+
+- Create Repository token and secret
   - 
 
 # Socials
