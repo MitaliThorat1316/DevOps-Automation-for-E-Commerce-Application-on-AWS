@@ -368,12 +368,14 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Run ```kubectl get pods -n kube-system``` and copy the ingress controller pod's name
   - Run ```kubectl logs <ingress controller pod name> -n kube-system``` and check the logs
   - If you find your domain from Godaddy in the logs that means it was successful, try both the ingress controller pods    
-  - ***On your Machine***
   - In your browser search for the domain from Godaddy the project website should be displayed
    
-## CI/CD
+## Continuous integration and continuous delivery (CI/CD)
+  
+***Implementing CI using Github Actions:-***  
 
-***CI***
+***On your machine***  
+
 - Create Docker Token 
   - Go to Docker Hub and login to your account
   - Go to "your account icon -> Account settings -> Personal access tokens (left hand side under settings) -> Generate new token -> Acess token description - DOCKER_TOKEN ->
@@ -407,7 +409,37 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Run ```git push origin githubcicheck``` to push those changes
   - Copy the URL displayed and open in an browser
   - Change "base repository" to "DevOps-Automation-for-E-Commerce-Application-on-AWS"
-  - Create pull request
+  - Create pull request  
+
+ ***Implementing CD using ArgoCD:-***  
+
+ ***On EC2 Instance***  
+
+ - Install and Configure Argo CD
+   - Run
+     ```
+     kubectl create namespace argocd
+     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+     ```
+   - Or, go to [Argo CD docs](https://argo-cd.readthedocs.io/en/stable/#getting-started) on your browser and follow the steps
+   - Run ```kubectl get svc -n argocd```, you should see a pod "argocd-server"
+   - Run ```kubectl edit svc argocd-server -n argocd```
+   - Press ```i``` to go to insert mode and change "type" to from ```ClusterIP``` to ```LoadBalancer```, you can also use ingress
+   - Press ```Esc``` to exit insert mode and type ```:wq``` to save and exit
+   - Run ```kubectl get svc -n argocd```, in the output from the "argocd-server" entry copy the External IP 
+   - Paste the copied External IP in your browser to access the Argo CD user interface (login page), might take 2-3 minutes to work (go to advanced settings if needed)
+   - Run ```kubectl get secrets -n argocd```, you should see a secret "argocd-initial-admin-secret"
+   - Run ```kubectl edit secret argocd-initial-admin-secret -n argocd``` and copy the "password" (this is base 64 encoded)
+   - Run ```echo -n <password> | base 64 --decode``` and copy the decoded password
+   - Go to the Argo CD login page in your browser, enter username - "admin" and password - "\<the decoded password>", sign in
+    
+  - Deploy the project using Argo CD
+    - After logging in to Argo CD, click on Create Application (will be in the center)
+    - Enter "Application name - productcatalog-service -> Project name - default -> Sync policy - Automatic -> Self heal - Enable -> Repository URL - paste the forked
+      repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - \https://kubernetes.default.svc -> Namespace - default -> Create"
+    - You can see the productcatalog-service application displayed, click on it and verify if the new image was deployed
+
+**YOU HAVE SUCCESSFULLY IMPLEMENTED A FULL DEVOPS LIFECYCLE! :D** 
 
 # Socials
 
