@@ -213,7 +213,9 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     docker push mitali1609/product-catalog:v1
     docker push mitali1609/adservice:v1
     docker push mitali1609/recommendationservice:v1
-    ```
+    ```   
+    ![Alt text](docs/Docker.png)
+
 ***On your machine***
 
 ## Infrastructure as code using Terraform
@@ -255,6 +257,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     terraform apply
     ```
     It will take about 15-20 minutes, do not stop in between
+    ![Alt text](docs/Terraform.png)  
   - After completion go to your AWS console and check if the resources have been created
   - After you're done with your project run ```terraform destroy``` as VPC and EKS are not included in the AWS free tier
 
@@ -279,6 +282,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Or run ```kubectl apply -f complete-deploy.yaml``` to deploy all the 20 services at once
   - Run ```kubectl get pods``` to verify the creation and check the status of your deployments (pods), wait until all pods are running
   - Run ```kubectl get svc``` to verify that all services have been created
+    ![Alt text](docs/Pods_running.png)  
  
 - Deploy the ALB Ingress controller
   - Install ALB Ingress controller
@@ -355,6 +359,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     Alias to Application and Classic Load Balancer -> Choose region - eu-west-2 -> Choose Load Balancer -> select the ALB load balancer -> Route policy - Simple routing
     -> Evaluate target health - Enable -> Create records"
   - In the new record from under the "Value\Route traffic to" section copy the name servers one by one and paste in the next step (they start with a "ns")
+    ![Alt text](docs/Route_53.png)
     
 - Update the nameservers and Ingress hostname
   - Login to "GoDaddy -> Click on your account icon -> My products -> Scroll down to Domains -> DNS -> Nameservers -> Change the nameservers -> I'll use my own nameservers
@@ -409,7 +414,8 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Run ```git push origin githubcicheck``` to push those changes
   - Copy the URL displayed and open in an browser
   - Change "base repository" to "DevOps-Automation-for-E-Commerce-Application-on-AWS"
-  - Create pull request  
+  - Create pull request
+    ![Alt text](docs/Github_Actions.png)
 
  ***Implementing CD using ArgoCD:-***  
 
@@ -438,6 +444,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     - Enter "Application name - productcatalog-service -> Project name - default -> Sync policy - Automatic -> Self heal - Enable -> Repository URL - paste the forked
       repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - \https://kubernetes.default.svc -> Namespace - default -> Create"
     - You can see the productcatalog-service application displayed, click on it and verify if the new image was deployed
+      ![Alt text](docs/Argo_CD.png)
 
 **YOU HAVE SUCCESSFULLY IMPLEMENTED A FULL DEVOPS LIFECYCLE! :D** 
 
