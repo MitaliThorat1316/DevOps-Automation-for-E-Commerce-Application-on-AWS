@@ -14,17 +14,31 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 # Project Techstack
 
 - Cloud platform - AWS
-- AWS services - AWS IAM users, AWS CLI, EC2 instance, S3, DyanamoDB, Amazon EKS, VPC, Route 53       
+- AWS services - AWS IAM users, AWS CLI, EC2 instance, S3, DynamoDB, Amazon EKS, VPC, Route 53       
 - Containerisation - Docker, Docker Hub
-- Infrastracture as code - Terraform
+- Infrastructure as code - Terraform
 - Container orchestration - Kubernetes
 - Traffic routing - ALB Ingress Controller
 - Domain integration - GoDaddy
 - DNS management - Route 53
-- CI - Github Actions
+- CI - GitHub Actions
 - CD - Argo CD
 
 # Project Implementation
+
+## Table of Contents
+- Project Overview
+- Architecture
+- Tech Stack
+- Prerequisites
+- Setup & Installation
+- Infrastructure Deployment
+- Kubernetes Deployment
+- CI/CD Setup
+- Custom Domain Setup
+- Screenshots
+- Conclusion
+- Socials
 
 ## Installations and Prerequisites
 
@@ -46,7 +60,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - AWS console -> EC2 dashboard -> Launch instance -> Name - devops-demo -> AMI - Ubuntu -> Instance type - t2.large -> Create new key pair - devops-demo(name), RSA,
       .pem, create key pair (the devops-demo.pem file will we downloaded on your machine) -> Network settings - auto-assign public IP(enabled), Allow SSH traffic -> Launch Instance
       
-- SSH into the EC2 insance
+- SSH into the EC2 instance
   - Once the Instance state is "running", click on the Instance and copy the "Public IPv4 address"
   - Go to your machine's command-line tool (for me it's command prompt)
   - In cmd, go to the folder where devops-demo.pem file in downloaded
@@ -56,9 +70,9 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ***In the EC2 instance:***
 
 - Install Docker
-  - [Install docker engine](https://docs.docker.com/engine/install/)
+  - [Install Docker engine](https://docs.docker.com/engine/install/)
   - Go to "Install using the apt repository section" and follow the steps
-  - Or you can follow the below steps:
+  - or run
     ```bash
     # Add Docker's official GPG key:
     sudo apt-get update
@@ -86,7 +100,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 - Install Kubectl
   - [Install kubectl](https://kubernetes.io/docs/tasks/tools/)
   - Go to "Install kubectl on Linux -> Install kubectl binary with curl on Linux' then follow the steps
-  - Or just follow these steps:
+  - Or run:
     ```bash
     # Download the latest release with the command:
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -106,7 +120,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 - Install Terraform
   - [Install terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
   - Go to "Install terraform -> Linux -> Ubuntu/Debian" and follow the steps
-  - Or follow these steps:
+  - Or run:
     ```bash
     # HashiCorp's Debian package repository.
     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -139,7 +153,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
     create access  keys -> Use case - CLI -> next -> tag - terraform -> create access key -> Copy the "access key" and "secret access key" and keep somewhere safe ->
     or just download the .csv file
   - Go to "[AWS CLI](https://aws.amazon.com/cli/) page  -> get started -> install/update -> Windows (or your OS)" and follow the steps
-  - Or just follow the steps below
+  - Or run
     ```
     sudo apt install unzip -y
     
@@ -184,7 +198,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Containerization of the project
 
 - Clone the repository on your EC2 instance  
-  - Go to "[Github](https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS) -> Code -> HTTPS" and copy the repository URL
+  - Go to "[GitHub](https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS) -> Code -> HTTPS" and copy the repository URL
   - Or just copy this ``` https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
   - Run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
  
@@ -221,8 +235,8 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 ## Infrastructure as code using Terraform
 
 - Install Plugins and clone repository
-  - This part of the project will be on your own machine not the EC2 instance because it's easier to write Terraform HCL files on an IDE like VS code and this EC2 instance      does'nt support that
-  - Open VS code and install "Terraform by Hashicorp", "YAML by Redhat" and "Github Copilot" plugins
+  - This part of the project will be on your own machine not the EC2 instance because it's easier to write Terraform HCL files on an IDE like VS code and this EC2 instance      doesn't support that
+  - Open VS code and install "Terraform by Hashicorp", "YAML by Redhat" and "GitHub Copilot" plugins
   - Clone the project repository on your machine, run ``` git clone https://github.com/MitaliThorat1316/DevOps-Automation-for-E-Commerce-Application-on-AWS.git ```
   
 - Configure AWS CLI using access keys
@@ -347,7 +361,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 - Getting a custom domain for the project (Paid)
   - ***On your Machine***
-  - We'll buy a custon domain from [GoDaddy](https://www.godaddy.com/en-uk)
+  - We'll buy a custom domain from [GoDaddy](https://www.godaddy.com/en-uk)
   - Go to "GoDAddy -> type the domain you want in search bar -> Go ahead if it's available or choose one from the options given -> Looks good keep going -> select for one
     year -> continue to cart -> No domain protection -> continue to cart -> Make payment"
 
@@ -377,7 +391,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
    
 ## Continuous integration and continuous delivery (CI/CD)
   
-***Implementing CI using Github Actions:-***  
+***Implementing CI using GitHub Actions:-***  
 
 ***On your machine***  
 
@@ -388,21 +402,21 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 
 - Create Repository token
   - Fork the repository "DevOps-Automation-for-E-Commerce-Application-on-AWS"
-  - Go to "Github -> your account icon -> Settings -> Developer settings (Left hand side list) -> Personal access tokens -> Tokens (classic) -> Generate new token ->
+  - Go to "GitHub -> your account icon -> Settings -> Developer settings (Left hand side list) -> Personal access tokens -> Tokens (classic) -> Generate new token ->
     Generate new token (classic) -> Note - TOKEN -> Enable everything until admin:org -> Generate token -> Copy the token"
 
-- Create Repository secrets (Docker username, Docker token and Github token)
-  - Go to "Github -> Settings(besides insights) -> Secrets and variables (left side) -> Actions -> Repository secrets -> New repository secret -> Name - DOCKER_USERNAME ->
-    Secret - <your docker username> -> Add secret
+- Create Repository secrets (Docker username, Docker token and GitHub token)
+  - Go to "GitHub -> Settings(besides insights) -> Secrets and variables (left side) -> Actions -> Repository secrets -> New repository secret -> Name - DOCKER_USERNAME ->
+    Secret - <your Docker username> -> Add secret
   - "New repository secret -> Name - DOCKER_TOKEN -> Secret - \<Docker personal access token that you created> -> Add Secret"
   - "New repository secret -> Name - GITHUB_TOKEN -> Secret - \<Github token that you created> -> Add Secret"
  
 - Edit the ci.yaml file
   - Clone the forked repository on your machine
-  - Open VS code and install "Github Actions" plugin
+  - Open VS code and install "GitHub Actions" plugin
   - Open the repository on VS code and navigate to ```DevOps-Automation-for-E-Commerce-Application-on-AWS/.github/workflows/ci.yaml```
   - Go to "commit and push changes" section under the "updatek8s"
-  - Enter your Github email in "user.email" and enter your Github username in "user.name" and save the file
+  - Enter your GitHub email in "user.email" and enter your GitHub username in "user.name" and save the file
  
 - Executing the CI
   - Go to your machine command line tool
@@ -442,7 +456,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Deploy the project using Argo CD
     - After logging in to Argo CD, click on Create Application (will be in the center)
     - Enter "Application name - productcatalog-service -> Project name - default -> Sync policy - Automatic -> Self heal - Enable -> Repository URL - paste the forked
-      repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - \https://kubernetes.default.svc -> Namespace - default -> Create"
+      repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - https://kubernetes.default.svc -> Namespace - default -> Create"
     - You can see the productcatalog-service application displayed, click on it and verify if the new image was deployed
       ![Alt text](docs/Argo_CD.png)
 
