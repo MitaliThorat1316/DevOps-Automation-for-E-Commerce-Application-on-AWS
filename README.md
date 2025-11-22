@@ -1,6 +1,18 @@
 # DevOps-Automation-for-E-Commerce-Application-on-AWS
 This project delivers the full DevOps lifecycle of an open-source e-commerce application (OpenTelemetry Astronomy Shop) by deploying 20+ microservices on AWS, simulating real-world cloud-native infrastructure and release workflows.
 
+## Table of Contents
+- [Project Highlights](#project-highlights)
+- [Project Techstack](#project-techstack)
+- [Project Implementation](#project-implementation)
+  - [Installations and Prerequisites](#installations-and-prerequisites)
+  - [Containerization of the Project](#containerization-of-the-project)
+  - [Infrastructure as Code Using Terraform](#infrastructure-as-code-using-terraform)
+  - [Deploying Project in Kubernetes](#deploying-project-in-kubernetes)
+  - [Custom Domain Configuration for the Project](#custom-domain-configuration-for-the-project)
+  - [Continuous Integration and Continuous Delivery (CI/CD)](#continuous-integration-and-continuous-delivery-cicd)
+- [Socials](#socials)
+
 # Project Highlights
 
 - Implements secure and scalable cloud access by creating AWS IAM users, generating access keys via AWS CLI, and launching Ubuntu EC2 instances with SSH connectivity.  
@@ -25,20 +37,6 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
 - CD - Argo CD
 
 # Project Implementation
-
-## Table of Contents
-- Project Overview
-- Architecture
-- Tech Stack
-- Prerequisites
-- Setup & Installation
-- Infrastructure Deployment
-- Kubernetes Deployment
-- CI/CD Setup
-- Custom Domain Setup
-- Screenshots
-- Conclusion
-- Socials
 
 ## Installations and Prerequisites
 
@@ -456,7 +454,7 @@ This project delivers the full DevOps lifecycle of an open-source e-commerce app
   - Deploy the project using Argo CD
     - After logging in to Argo CD, click on Create Application (will be in the center)
     - Enter "Application name - productcatalog-service -> Project name - default -> Sync policy - Automatic -> Self heal - Enable -> Repository URL - paste the forked
-      repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - https://kubernetes.default.svc -> Namespace - default -> Create"
+      repository URL -> Revision - Head -> Path - ```kubernetes/productcatalog``` -> Cluster URL - 'https://kubernetes.default.svc'  -> Namespace - default -> Create"
     - You can see the productcatalog-service application displayed, click on it and verify if the new image was deployed
       ![Alt text](docs/Argo_CD.png)
 
